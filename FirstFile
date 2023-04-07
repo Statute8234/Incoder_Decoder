@@ -1,0 +1,45 @@
+import random
+import string
+key = random.randint(100,999)
+list2D = [["code",str(key)]]
+def RandomLetter():
+    RandomList = random.choice(string.ascii_lowercase + string.ascii_uppercase)
+    return RandomList
+
+def Incoder(message):
+    AddtoList = True # add to list if the message is not in the list
+    randomizeCode = True
+    # find code
+    for value in list2D:
+        if value[0] == message:
+            IncodedMessage = value[1]
+            randomizeCode = False
+            AddtoList = False
+        if value[1] == message:
+            if value[1] == str(key):
+                IncodedMessage = list2D
+            else:
+                IncodedMessage = value[0]
+            randomizeCode = False
+            AddtoList = False
+    # randomize code
+    while randomizeCode:
+        IncodedMessage = ''
+        for letter in range(random.randint(1,len(message))):
+            IncodedMessage += RandomLetter()
+        for value in list2D:
+            if value[0] == IncodedMessage:
+                randomizeCode = True
+            else:
+                randomizeCode = False
+
+    if AddtoList == True:
+        list2D.append([IncodedMessage,message])
+    print(IncodedMessage)
+
+while True:
+    try:
+        userInput = input("> ")
+        Incoder(userInput)
+    except:
+        break
